@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 from pathlib import Path
+import time
 
 #players from whom settings are most commonly stolen!
 top_players = [
@@ -71,5 +72,6 @@ def main():
 
 
 main()
+time.sleep(1.5)
 
 
