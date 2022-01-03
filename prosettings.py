@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 from pathlib import Path
 import time
+import winreg
 
 #players from whom settings are most commonly stolen!
 top_players = [
@@ -15,24 +16,21 @@ top_players = [
 
 names = [ "s1mple", "niko", "coldzera", "stewie2k", "zywoo", "device"] #PYTHON DOESNT HAVE PAIRS
 
-
+def get_steam_path():
+    key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, "SOFTWARE\WOW6432Node\Valve\Steam")
+    path = winreg.QueryValueEx(key, "InstallPath")
+    return str(path[0])
     
 def get_cfg_path():
-    letters = ["C", "D", "E", "F", "G", "H", "I"] #if your disk doesnt have one of these letters, youre a fucking weirdo.
-    path = ""
+    path = Path(get_steam_path() + "\steamapps\common\Counter-Strike Global Offensive\csgo\cfg")
 
-    for i in range(len(letters)):
-        path = Path(letters[i] + ":\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg")
-
-        if (path.exists()):
-            return path
-            break
-
+    if (path.exists()):
+        return path    
+            
     if (path == ""):
         return str(input("Error, please manually specify path to CFG folder: "))
         
 
-path_to_cfg_folder = get_cfg_path()
 
 def make_cfg(name, path, url):
     source = requests.get(url).text
@@ -48,7 +46,6 @@ def make_cfg(name, path, url):
     bob = settings[2].text
 
     file = open("%s\%s.cfg" % (path, name), "w")
-
     file.write(crosshair)
     file.write(viewmodel)
     file.write(bob)
@@ -56,6 +53,7 @@ def make_cfg(name, path, url):
 
 def main():
     choice = int(input("0 = manual download, 1 = download 5 popular configs: "))
+    path_to_cfg_folder = get_cfg_path()
 
     if (choice == 0):
         url = str(input("URL: "))
@@ -71,7 +69,8 @@ def main():
         print("go kys")
 
 
+
 main()
-time.sleep(1.5)
+time.sleep(2)
 
 
