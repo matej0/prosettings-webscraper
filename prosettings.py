@@ -70,7 +70,9 @@ def main():
 
 
 
-main()
-time.sleep(2)
+if __name__ == "__main__":
+    main()
+    time.sleep(2.0)
+
 
 
