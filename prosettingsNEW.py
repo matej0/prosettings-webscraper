@@ -12,9 +12,11 @@ top_players = [
     "https://prosettings.net/players/stewie2k/",
     "https://prosettings.net/players/zywoo",
     "https://prosettings.net/players/dev1ce/",
+    "https://prosettings.net/players/rigon/",
+    "https://prosettings.net/players/m0nesy/",
 ]
 
-names = [ "s1mple", "niko", "xantares", "stewie2k", "zywoo", "device"] #PYTHON DOESNT HAVE PAIRS
+names = [ "s1mple", "niko", "xantares", "stewie2k", "zywoo", "device", "rigoN", "monesy"] #PYTHON DOESNT HAVE PAIRS
 
 def get_steam_path():
     key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, "SOFTWARE\WOW6432Node\Valve\Steam")
@@ -30,10 +32,9 @@ def get_cfg_path():
     if (path == ""):
         return str(input("Error, please manually specify path to CFG folder: "))
         
-
 def kek(source):
     soup = BeautifulSoup(source, "lxml")
-    div = soup.find("div")
+    div = soup.find(id = "csgo")
 
     crosshair = div.find(id = "csgo_crosshair")
     viewmodel = div.find(id = "csgo_viewmodel")
@@ -41,6 +42,7 @@ def kek(source):
 
     commands = []
 
+    
     crosshaircmd = crosshair.find_all(attrs = {"class" : "format-number"})
     bobcmd = bob.find_all(attrs = {"class" : "format-number"})
     viewmodelcmd = viewmodel.find_all(attrs = {"class" : "format-number"})
@@ -76,7 +78,7 @@ def make_cfg(name, path, url):
     file.close()
 
 def main():
-    choice = int(input("0 = manual download, 1 = download 5 popular configs: "))
+    choice = int(input("0 = manual download, 1 = download popular configs: "))
     path_to_cfg_folder = get_cfg_path()
 
     if (choice == 0):
