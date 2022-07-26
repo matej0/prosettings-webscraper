@@ -34,7 +34,7 @@ def get_cfg_path():
         
 def kek(source):
     soup = BeautifulSoup(source, "lxml")
-    div = soup.find(id = "csgo")
+    div = soup.find(id = "csgo-settings")
 
     crosshair = div.find(id = "csgo_crosshair")
     viewmodel = div.find(id = "csgo_viewmodel")
