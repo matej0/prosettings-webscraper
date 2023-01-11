@@ -47,9 +47,9 @@ def kek(source):
     bobcmd = bob.find_all(attrs = {"class" : "format-number"})
     viewmodelcmd = viewmodel.find_all(attrs = {"class" : "format-number"})
 
-    bobvalues = bob.find_all("dd")
-    crosshairvalues = crosshair.find_all("dd")
-    viewmodelvalues = viewmodel.find_all("dd")
+    bobvalues = bob.find_all("td")
+    crosshairvalues = crosshair.find_all("td")
+    viewmodelvalues = viewmodel.find_all("td")
 
     for k, i in enumerate(bobcmd):
         cmd1 = i.get("data-field") + " " + bobvalues[k].text + ";"
